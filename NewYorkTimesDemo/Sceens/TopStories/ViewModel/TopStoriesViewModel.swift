@@ -1,5 +1,5 @@
 //
-//  ViewModel.swift
+//  TopStoriesViewModel.swift
 //  NewYorkTimesDemo
 //
 //  Created by Zhaoyang Li on 10/31/20.
@@ -7,20 +7,20 @@
 
 import UIKit
 
-class ViewModel {
+class TopStoriesViewModel {
     var validStoriesDataSource = [ValidStory]()
+    static var rareStoriesDataSource = [Result]()
     
     func parseTopStoriesDataHandler(aSimpleHnadler handler: @escaping (Error?) -> ()) {
-        let urlString = "https://api.nytimes.com/svc/news/v3/content/all/all.json"
-        let parameters = ["api-key": "giiGgfGdJ8iYtTNQWuwSUquiIjtJM0n2"]
+        let urlString = AppConstants.rooURLString
+        let parameters = [AppConstants.apiKeyQuery: AppConstants.apiKeyValue]
         
-        ServiceManager.shared.fetchData(url: urlString, parameters: parameters) { data, error in
-            print(data ?? "")
-            
+        ServiceManager.shared.fetchData(url: urlString, parameters: parameters) { data, error in            
             guard let data = data, error == nil else { handler(error); return }
             do {
                 let json = try JSONDecoder().decode(ResultsHolder.self, from: data)
                 guard let results = json.results else { handler(error); return }
+                TopStoriesViewModel.rareStoriesDataSource = results
                 for result in results {
                     if let title = result.title,
                        let abstract = result.title,
@@ -34,7 +34,7 @@ class ViewModel {
                             let singleValidStory = ValidStory(thumbImage: storyImage, title: title, time: timeString, url: storyURL, abstract: abstract)
                             self.validStoriesDataSource.append(singleValidStory)
                         } else {
-                            let singleValidStory = ValidStory(thumbImage: UIImage(imageLiteralResourceName: "NYTLogo"), title: title, time: timeString, url: storyURL, abstract: abstract)
+                            let singleValidStory = ValidStory(thumbImage: UIImage(imageLiteralResourceName: AppConstants.newYorkTimeLogo), title: title, time: timeString, url: storyURL, abstract: abstract)
                             self.validStoriesDataSource.append(singleValidStory)
                         }
                     }

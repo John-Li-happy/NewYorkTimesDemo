@@ -13,7 +13,14 @@ class TopStoryTableViewCell: UITableViewCell, ReusableCellProtocol {
     @IBOutlet private weak var headShotImageView: UIImageView!
     @IBOutlet private weak var timeLabel: UILabel!
     
-    func configureCell(title: String, abstract: String, image: UIImage, postTime: String) {
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        headShotImageView.layer.cornerRadius = headShotImageView.frame.size.height / 2
+        headShotImageView.layer.borderColor = UIColor.gray.cgColor
+        headShotImageView.layer.borderWidth = 1.0
+    }
+    
+    func configureCell(title: String, abstract: String, image: UIImage, postTime: String?) {
         titleLabel.text = title
         abstractLabel.text = abstract
         headShotImageView.image = image

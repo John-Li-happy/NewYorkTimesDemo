@@ -8,24 +8,37 @@
 import UIKit
 
 class TopStoriesViewController: UIViewController {
-    let viewModel = ViewModel()
     
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.rowHeight = 120
+            tableView.tableFooterView = UIView()
         }
     }
+    @IBOutlet private weak var activityIndicater: UIActivityIndicatorView!
+    
+    let viewModel = TopStoriesViewModel()
+    var refreshControll = UIRefreshControl()
+    
+    private func initialUIsettings() {
+        refreshControll.addTarget(self, action: #selector(fetchTopStoriesParsedData), for: .valueChanged)
+        tableView.addSubview(refreshControll)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        initialUIsettings()
         fetchTopStoriesParsedData()
     }
     
-    private func fetchTopStoriesParsedData() {
-        viewModel.parseTopStoriesDataHandler { error in
+    @objc private func fetchTopStoriesParsedData() {
+        viewModel.parseTopStoriesDataHandler { [ weak self ] error in
+            guard let weakSelf = self else { return }
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                weakSelf.activityIndicater.stopAnimating()
+                weakSelf.tableView.reloadData()
+                weakSelf.refreshControll.endRefreshing()
             }
         }
     }
@@ -41,9 +54,17 @@ extension TopStoriesViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let story = viewModel.validStoriesDataSource[indexPath.row]
-        cell.configureCell(title: story.title, abstract: story.abstract, image: story.thumbImage, postTime: story.time)
-        return UITableViewCell()
+        cell.configureCell(title: story.title, abstract: story.abstract, image: story.thumbImage, postTime: story.formattedDateAndTimeString)
+        return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let storyBoard = UIStoryboard(name: AppConstants.StoryBoardViews.storyBoardName, bundle: nil)
+        if let detailViewController = storyBoard.instantiateViewController(identifier: AppConstants.StoryBoardViews.storyDetailViewController) as? StoryDetailViewController {
+            detailViewController.chosenIndex = indexPath.row
+            detailViewController.validOrignialInfo = viewModel.validStoriesDataSource[indexPath.row]
+            self.navigationController?.pushViewController(detailViewController, animated: true)
+        }
+    }
 }

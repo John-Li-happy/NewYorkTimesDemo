@@ -31,7 +31,6 @@ class ServiceManager {
                 completionHandler(nil, failResponse)
             }
         }
-        
         task.resume()
     }
     
