@@ -5,8 +5,6 @@
 //  Created by Zhaoyang Li on 10/31/20.
 //
 
-import Foundation
-
 protocol ReusableCellProtocol {
     static var reuseIdentifier: String { get }
 }
