@@ -17,20 +17,9 @@ class TopStoriesViewController: UIViewController {
         }
     }
     @IBOutlet private weak var activityIndicater: UIActivityIndicatorView!
-<<<<<<< HEAD
     private var refreshControl = UIRefreshControl()
     
     lazy var viewModel = TopStoriesViewModel(delegate: self)
-=======
-    
-    let viewModel = TopStoriesViewModel()
-    var refreshControll = UIRefreshControl()
-    
-    private func initialUIsettings() {
-        refreshControll.addTarget(self, action: #selector(fetchTopStoriesParsedData), for: .valueChanged)
-        tableView.addSubview(refreshControll)
-    }
->>>>>>> 27cd282d936dedb4c86db19906a895147aba00c3
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +27,6 @@ class TopStoriesViewController: UIViewController {
         fetchTopStoriesParsedData()
     }
     
-<<<<<<< HEAD
     private func initialUIsettings() {
         refreshControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
@@ -79,17 +67,6 @@ extension TopStoriesViewController: TopStoriesViewModelProtocol {
     
     func stopRefresh() {
         self.refreshControl.endRefreshing()
-=======
-    @objc private func fetchTopStoriesParsedData() {
-        viewModel.parseTopStoriesDataHandler { [ weak self ] error in
-            guard let weakSelf = self else { return }
-            DispatchQueue.main.async {
-                weakSelf.activityIndicater.stopAnimating()
-                weakSelf.tableView.reloadData()
-                weakSelf.refreshControll.endRefreshing()
-            }
-        }
->>>>>>> 27cd282d936dedb4c86db19906a895147aba00c3
     }
 }
 
@@ -102,13 +79,8 @@ extension TopStoriesViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TopStoryTableViewCell.reuseIdentifier, for: indexPath) as? TopStoryTableViewCell else {
             return UITableViewCell()
         }
-<<<<<<< HEAD
         let newsModel = viewModel.news(atIndex: indexPath.row)
         cell.configureCell(model: newsModel)
-=======
-        let story = viewModel.validStoriesDataSource[indexPath.row]
-        cell.configureCell(title: story.title, abstract: story.abstract, image: story.thumbImage, postTime: story.formattedDateAndTimeString)
->>>>>>> 27cd282d936dedb4c86db19906a895147aba00c3
         return cell
     }
     
@@ -116,12 +88,7 @@ extension TopStoriesViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyBoard = UIStoryboard(name: AppConstants.StoryBoardViews.storyBoardName, bundle: nil)
         if let detailViewController = storyBoard.instantiateViewController(identifier: AppConstants.StoryBoardViews.storyDetailViewController) as? StoryDetailViewController {
-<<<<<<< HEAD
             detailViewController.news = viewModel.news(atIndex: indexPath.row)
-=======
-            detailViewController.chosenIndex = indexPath.row
-            detailViewController.validOrignialInfo = viewModel.validStoriesDataSource[indexPath.row]
->>>>>>> 27cd282d936dedb4c86db19906a895147aba00c3
             self.navigationController?.pushViewController(detailViewController, animated: true)
         }
     }

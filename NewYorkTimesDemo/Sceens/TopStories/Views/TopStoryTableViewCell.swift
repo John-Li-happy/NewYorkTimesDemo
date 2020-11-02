@@ -20,18 +20,10 @@ class TopStoryTableViewCell: UITableViewCell, ReusableCellProtocol {
         headShotImageView.layer.borderWidth = 1.0
     }
     
-<<<<<<< HEAD
     func configureCell(model: NewsProtocol) {
         titleLabel.text = model.title
         abstractLabel.text = model.abstract
         headShotImageView.setImage(withPath: model.imageUrl ?? "", placeholderName: "NYTLogo")
         timeLabel.text = model.timeString
-=======
-    func configureCell(title: String, abstract: String, image: UIImage, postTime: String?) {
-        titleLabel.text = title
-        abstractLabel.text = abstract
-        headShotImageView.image = image
-        timeLabel.text = postTime
->>>>>>> 27cd282d936dedb4c86db19906a895147aba00c3
     }
 }

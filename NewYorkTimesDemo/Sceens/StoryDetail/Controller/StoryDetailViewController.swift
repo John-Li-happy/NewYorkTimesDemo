@@ -18,22 +18,11 @@ class StoryDetailViewController: UIViewController {
     @IBOutlet private weak var newsPhotoImageView: UIImageView!
     @IBOutlet private weak var captionLabel: UILabel!
     
-<<<<<<< HEAD
     var news: NewsProtocol?
-=======
-    let viewModel = StoriesDetailViewModel()
-    var chosenIndex = Int()
-    var validOrignialInfo: ValidStory?
-    
-    private func initialUISettings() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(shareThisNews))
-    }
->>>>>>> 27cd282d936dedb4c86db19906a895147aba00c3
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initialUISettings()
-<<<<<<< HEAD
         displayResult()
     }
     
@@ -58,34 +47,6 @@ class StoryDetailViewController: UIViewController {
         let thirdActivityItem = self.newsPhotoImageView.image ?? #imageLiteral(resourceName: "NYTLogo")
         
         let activityViewController = UIActivityViewController(activityItems: [firstActivityItem ?? "News Title", secondActivityItem, thirdActivityItem], applicationActivities: nil)
-=======
-        parseResults()
-    }
-    
-    private func parseResults() {
-        viewModel.parseStoryDetail(chosnIndex: chosenIndex) { [ weak self ] error in
-            guard let weakSelf = self, error == nil else { return }
-            DispatchQueue.main.async {
-                weakSelf.titleLabel.text = weakSelf.validOrignialInfo?.title
-                weakSelf.timeLabel.text = weakSelf.validOrignialInfo?.formattedDateAndTimeString
-                weakSelf.contentLabel.text = weakSelf.validOrignialInfo?.abstract
-                
-                weakSelf.typeLabel.text = weakSelf.viewModel.validRestDetail.type
-                weakSelf.sourceLabel.text = weakSelf.viewModel.validRestDetail.source
-                weakSelf.locationLaebl.text = weakSelf.viewModel.validRestDetail.location
-                weakSelf.newsPhotoImageView.image = weakSelf.viewModel.validRestDetail.newsImage
-                weakSelf.captionLabel.text = weakSelf.viewModel.validRestDetail.caption
-            }
-        }
-    }
-    
-    @objc private func shareThisNews() {
-        let firstActivityItem = validOrignialInfo?.title
-        guard let secondActivityItem = validOrignialInfo?.url else { return }
-        let thirdActivityItem = validOrignialInfo?.thumbImage
-        
-        let activityViewController = UIActivityViewController(activityItems: [firstActivityItem ?? "News Title", secondActivityItem, thirdActivityItem ?? UIImage(imageLiteralResourceName: AppConstants.newYorkTimeLogo)], applicationActivities: nil)
->>>>>>> 27cd282d936dedb4c86db19906a895147aba00c3
         if #available(iOS 13.0, *) {
             activityViewController.activityItemsConfiguration = [
                 UIActivity.ActivityType.message
