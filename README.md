@@ -18,7 +18,9 @@ MVVM is chosen to be used into this project, in order to reduce code-coupling, a
 
 ## IDE
 Xcode 12.1
+
 Swift 5.3
+
 Nice to fit devices later than iPhone 8
 
 ## API references
