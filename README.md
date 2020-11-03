@@ -21,4 +21,8 @@ Xcode 12.1
 Swift 5.3
 Nice to fit devices later than iPhone 8
 
+## API references
+https://developer.nytimes.com/
+
+
 ![giphy](https://user-images.githubusercontent.com/63318597/98021781-ba3f9980-1dd2-11eb-83e9-aac3777b1ee5.gif)
