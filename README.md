@@ -16,3 +16,4 @@ At last, the code coverage is over 65% of the whole project.
 ## Using Model-View-ViewModel (MVVM) architechture design pattern
 MVVM is chosen to be used into this project, in order to reduce code-coupling, and it is easier for test job.
 
+![giphy](https://user-images.githubusercontent.com/63318597/98021781-ba3f9980-1dd2-11eb-83e9-aac3777b1ee5.gif)
