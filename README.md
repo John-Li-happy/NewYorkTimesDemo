@@ -1,5 +1,5 @@
 # NewYorkTimesDemo
-A small news demo creating berfore big election day, used to fetch updatest news.
+A news demo creating berfore big election day, used to fetch updatest news.
 
 ## Following Test-Driven-Development (TDD)
 Unit test procedure is deployed, to build a soild / bugless project.
@@ -15,5 +15,10 @@ At last, the code coverage is over 65% of the whole project.
 
 ## Using Model-View-ViewModel (MVVM) architechture design pattern
 MVVM is chosen to be used into this project, in order to reduce code-coupling, and it is easier for test job.
+
+## IDE
+Xcode 12.1
+Swift 5.3
+Nice to fit devices later than iPhone 8
 
 ![giphy](https://user-images.githubusercontent.com/63318597/98021781-ba3f9980-1dd2-11eb-83e9-aac3777b1ee5.gif)
